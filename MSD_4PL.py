@@ -1,15 +1,17 @@
 #!/bin/python3
 import scipy.optimize as optimization
 
+###standard curve: 4-parameter logistic
 def fourPL(x, A, B, C, D):
     return ((A-D)/(1.0+((x/C)**(B))) + D)
     ###b1=D, b2=A, b3=C, b4=B
 
+###calculate concentrations according to the standard curve
 def concentration(x,a,b,c,d):
     z=c*(((a-d)/(x-d)-1)**(1/b))
     return z
 
-f=open('RP2_raw.txt') ###
+f=open('RP2_raw.txt') ###raw signals in 96-well format
 info={}
 tag='tag'
 temp=[]
@@ -40,7 +42,7 @@ for i in range(len(info[row[0]])):
         reads[tag][j]=info[j][i]
 layout={}
 
-f=open('new_RP2_layout.txt') ###
+f=open('SP2_RP2_layout.txt') ###plate design/layout
 pos={}
 standard=[]
 sample=[]
@@ -75,7 +77,7 @@ dilution_fold['score'].sort()
 f.close()
 standard_con={}
 
-f=open('Standards_conc_K15659U.txt') ###
+f=open('Standards_conc_K15659U.txt') ###concentrations of standards
 for line in f:
     x=line.strip('\n').strip('\t').strip().split('\t')
     temp=[]
@@ -94,8 +96,6 @@ for i in reads.keys():
         score1=reads[i][x1[0]][int(x1[1])-1]
         score2=reads[i][x2[0]][int(x2[1])-1]
         reads_avg[i][j]=(int(score1)+int(score2))/2
-##for i in reads_avg.keys():
-##    print(i, reads_avg[i])
 
 pl={}
 prot=[]
@@ -151,7 +151,7 @@ for i in sample:
         out.write(result.strip('\t')+'\n')
 out.close()
 
-out=open('RP2_parameters.txt','w') ###
+out=open('RP2_parameters.txt','w') ###output the 4 parameter in the curve
 out.write('prot\tA, B, C, D\n')
 
 for i in pl.keys():
@@ -163,7 +163,7 @@ for i in pl.keys():
 out.close()
 
 rename={}
-f=open('Analytes_K15659U.txt') ###
+f=open('Analytes_K15659U.txt') ###a list of analytes in each well
 count=0
 for line in f:
     x=line.strip('\n').strip()
@@ -172,14 +172,14 @@ for line in f:
 f.close()
 order_list=[]
 
-f=open('samplelist_SP2_RP2.txt') ###
+f=open('samplelist_SP2_RP2.txt') ###samples for output
 for line in f:
     x=line.strip('\n').strip()
     order_list.append(x)
 f.close()
 
 f=open('RP2_result.txt') ###
-out=open('output_RP2_result.txt','w') ###
+out=open('output_RP2_result.txt','w') ###final output
 for line in f:
     x=line.strip('\n').strip().split('\t')
     head=''
