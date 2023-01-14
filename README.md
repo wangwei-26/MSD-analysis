@@ -21,7 +21,7 @@ A script designed to analyze sets of MSD data to determine the concentration of 
 the standard curve to calculate concentrations for unknows and controls.
 
 ## Demo:
-1. Prepare correct input files as below (please keep formats the same as in the [Example Files](Example_Files)):
+1. Prepare correct input files as below (please keep formats the same as in the [Example Files](example_files)):
     * raw signals (RP2_raw.txt)
     * plate design/layout (SP1_RP2_layout.txt)
     * concentrations of standards (Standards_conc_K15659U.txt)
