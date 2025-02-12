@@ -2,7 +2,7 @@
 A script designed to analyze sets of MSD data to determine the concentration of analyte in unknown samples in a 96-well format. Using raw signals from standards, it creats a standard curve with 4-parameter logistic (FourPL), and then uses
 the standard curve to calculate concentrations for unknows and controls.
 
-## Demo:
+## Steps:
 1. Prepare correct input files as below (please keep formats the same as in the [Example Files](example_files)):
     * raw signals (RP2_raw.txt)
     * plate design/layout (SP1_RP2_layout.txt)
